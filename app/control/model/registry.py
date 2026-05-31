@@ -42,7 +42,7 @@ MODELS: tuple[ModelSpec, ...] = (
     ModelSpec("grok-imagine-image-lite",                ModeId.FAST,     Tier.BASIC, Capability.IMAGE,      True, "Grok Imagine Image Lite"),
     # Super+
     ModelSpec("grok-imagine-image",                     ModeId.AUTO,     Tier.SUPER, Capability.IMAGE,      True, "Grok Imagine Image"),
-    ModelSpec("grok-imagine-image-pro",                 ModeId.AUTO,     Tier.SUPER, Capability.IMAGE,      True, "Grok Imagine Image Pro"),
+    ModelSpec("grok-imagine-image-quality",             ModeId.AUTO,     Tier.SUPER, Capability.IMAGE,      True, "Grok Imagine Image Quality"),
 
     # === Image Edit =========================================================
 
@@ -61,6 +61,11 @@ MODELS: tuple[ModelSpec, ...] = (
 # ---------------------------------------------------------------------------
 
 _BY_NAME: dict[str, ModelSpec] = {m.model_name: m for m in MODELS}
+_ALIASES: dict[str, str] = {
+    # xAI deprecated this name on May 15, 2026. Keep it as an input alias so
+    # existing clients continue to work while /v1/models exposes the new name.
+    "grok-imagine-image-pro": "grok-imagine-image-quality",
+}
 
 _BY_CAP: dict[int, list[ModelSpec]] = {}
 for _m in MODELS:
@@ -74,12 +79,13 @@ for _m in MODELS:
 
 def get(model_name: str) -> ModelSpec | None:
     """Return the spec for *model_name*, or ``None`` if not registered."""
-    return _BY_NAME.get(model_name)
+    canonical = _ALIASES.get(model_name, model_name)
+    return _BY_NAME.get(canonical)
 
 
 def resolve(model_name: str) -> ModelSpec:
     """Return the spec for *model_name*; raise ``ValueError`` if unknown."""
-    spec = _BY_NAME.get(model_name)
+    spec = get(model_name)
     if spec is None:
         raise ValueError(f"Unknown model: {model_name!r}")
     return spec

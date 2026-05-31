@@ -250,7 +250,7 @@ docker compose up -d
 | :-- | :-- | :-- |
 | `grok-imagine-image-lite` | `fast` | `basic` |
 | `grok-imagine-image` | `auto` | `super` |
-| `grok-imagine-image-pro` | `auto` | `super` |
+| `grok-imagine-image-quality` | `auto` | `super` |
 
 ### Image Edit
 
@@ -509,7 +509,7 @@ curl http://localhost:8000/v1/images/generations \
 
 | 字段 | 说明 |
 | :-- | :-- |
-| `model` | 图像模型：`grok-imagine-image-lite`, `grok-imagine-image`, `grok-imagine-image-pro` |
+| `model` | 图像模型：`grok-imagine-image-lite`, `grok-imagine-image`, `grok-imagine-image-quality` |
 | `prompt` | 图片生成提示词 |
 | `n` | 生成数量；`lite` 为 `1-4`，其他图像模型为 `1-10` |
 | `size` | 支持 `1280x720`, `720x1280`, `1792x1024`, `1024x1792`, `1024x1024` |

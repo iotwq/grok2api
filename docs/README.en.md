@@ -249,7 +249,7 @@ Runtime config can also be overridden with `GROK_`-prefixed environment variable
 | :-- | :-- | :-- |
 | `grok-imagine-image-lite` | `fast` | `basic` |
 | `grok-imagine-image` | `auto` | `super` |
-| `grok-imagine-image-pro` | `auto` | `super` |
+| `grok-imagine-image-quality` | `auto` | `super` |
 
 ### Image Edit
 
@@ -508,7 +508,7 @@ curl http://localhost:8000/v1/images/generations \
 
 | Field | Description |
 | :-- | :-- |
-| `model` | Image model: `grok-imagine-image-lite`, `grok-imagine-image`, or `grok-imagine-image-pro` |
+| `model` | Image model: `grok-imagine-image-lite`, `grok-imagine-image`, or `grok-imagine-image-quality` |
 | `prompt` | Image generation prompt |
 | `n` | Number of images; `1-4` for `lite`, `1-10` for other image models |
 | `size` | Supports `1280x720`, `720x1280`, `1792x1024`, `1024x1792`, `1024x1024` |

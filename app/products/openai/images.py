@@ -266,7 +266,11 @@ def _output_content(image: _ImageOutput, *, chat_format: bool) -> str:
 # Models that use the chat endpoint for image generation (no WS, no params).
 _LITE_IMAGE_MODELS = frozenset({"grok-imagine-image-lite"})
 # WS models that use quality mode (enable_pro=True).
-_PRO_IMAGE_MODELS  = frozenset({"grok-imagine-image-pro"})
+_PRO_IMAGE_MODELS  = frozenset({
+    "grok-imagine-image-quality",
+    # Backward-compatible alias for older clients.
+    "grok-imagine-image-pro",
+})
 
 
 async def generate(
@@ -284,7 +288,7 @@ async def generate(
     Routes to the appropriate backend based on model:
       grok-imagine-image-lite  → chat endpoint (fast quota, no aspect-ratio control)
       grok-imagine-image       → WebSocket speed mode (super+)
-      grok-imagine-image-pro   → WebSocket quality mode (super+)
+      grok-imagine-image-quality → WebSocket quality mode (super+)
 
     Returns:
       Non-streaming: OpenAI images.generations dict, or chat dict if chat_format=True.
